@@ -17,4 +17,4 @@ jobs:
     condition: always()
     displayName: 'Publish Artifact'
     inputs:
-      PathtoPublish: '$(System.ArtifactStagingDirectory)'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
