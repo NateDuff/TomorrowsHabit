@@ -13,6 +13,18 @@ jobs:
     vmImage: 'VS2017-Win2016'
 
   steps:
+  - task: CopyFiles@2
+    displayName: 'Copy ARM Templates'
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)/ARM Template'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/ARM Template'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Scripts'
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)/Scripts'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/Scripts'
+
   - task: PublishBuildArtifacts@1
     condition: always()
     displayName: 'Publish Artifact'
