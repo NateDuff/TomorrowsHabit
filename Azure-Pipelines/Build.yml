@@ -1,1 +1,20 @@
-# Build Manifest for TomorrowsHabit.com
+name: $(Build.DefinitionName)-$(date:yyyyMMdd)$(rev:.r)
+trigger:
+  branches:
+    include:
+    - 'development'
+    - 'master'
+    - 'release/*'
+    - 'hotfix/*'
+
+jobs:
+- job: Hosted
+  pool:
+    vmImage: 'VS2017-Win2016'
+
+  steps:
+  - task: PublishBuildArtifacts@1
+    condition: always()
+    displayName: 'Publish Artifact'
+    inputs:
+      PathtoPublish: '$(System.ArtifactStagingDirectory)'
