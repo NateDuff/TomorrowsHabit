@@ -10,9 +10,22 @@ trigger:
 jobs:
 - job: Hosted
   pool:
-    vmImage: 'VS2017-Win2016'
+    vmImage: 'Ubuntu-16.04'
+    demands: npm
 
   steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '8.x'
+    displayName: 'Install Node.js'
+
+  - script: |
+      npm install -g @angular/cli
+      npm install
+      ng build --prod --output-path '$(Build.ArtifactStagingDirectory)/Web'
+    workingDirectory: Web
+    displayName: 'npm install and build'
+    
   - task: CopyFiles@2
     displayName: 'Copy ARM Templates'
     inputs:
